@@ -40,7 +40,7 @@
     CGFloat marginX = (self.view.frame.size.width - appW * columns) / (columns + 1);
     CGFloat marginY = marginX;
     
-    for (int i = 0; i < 21; i++) {
+    for (int i = 0; i < 9; i++) {
         
         UILabel *oneView = [[UILabel alloc] init];
         
@@ -59,13 +59,15 @@
         [self.chooseView addSubview:oneView];
         
     }
-    UILabel *testLBL = [[UILabel alloc] initWithFrame:CGRectMake(marginX, 30, CGRectGetWidth(self.view.bounds) - 2 * marginX, 40)];
-    testLBL.text = @"http://sz8023.github.io";
-    testLBL.backgroundColor = [UIColor whiteColor];
-    testLBL.textAlignment = NSTextAlignmentCenter;
+    UIButton *testBtn = [[UIButton alloc] initWithFrame:CGRectMake(marginX, 30, CGRectGetWidth(self.view.bounds) - 2 * marginX, 40)];
+    [testBtn setTitle:@"http://sz8023.github.io" forState:UIControlStateNormal];
+    [testBtn setBackgroundColor:[UIColor redColor]];
+    [testBtn addTarget:self action:@selector(testClick) forControlEvents:UIControlEventTouchUpInside];
+
+//    testBtn.userInteractionEnabled = NO;
     
     // 可以一次性添加已经设置好坐标的子视图，或者分别一个个添加
-    [self.chooseView chooseWithOriginSubViews:@[testLBL] completionBlock:^(NSArray *chooseSubViews) {
+    [self.chooseView chooseWithOriginSubViews:@[testBtn] completionBlock:^(NSArray *chooseSubViews) {
         NSString *message = [NSString stringWithFormat:@"你选中了 %zd 个子视图~_~",chooseSubViews.count];
         UIAlertController *logout = [UIAlertController alertControllerWithTitle:@"你确定注销？" message:message preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *destructive = [UIAlertAction actionWithTitle:@"注销" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -79,6 +81,15 @@
         [self presentViewController:logout animated:YES completion:nil];
         
     }];
+    
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)/2 - 200/2, 320, 200, 200)];
+    imgView.image = [UIImage imageNamed:@"文件3"];
+    [chooseView addSubview:imgView];
+}
+
+#pragma mark - Event Repsonse
+- (void)testClick {
+    NSLog(@"%s",__func__);
 }
 
 
